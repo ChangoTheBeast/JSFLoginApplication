@@ -7,7 +7,7 @@ and Java EE.
 2. [Login Screen](#login-screen)
     1. [Front End Components](#front-end-components)
     2. [Back End Components](#back-end-components)
-    
+3. [Authentication](#authentication)
 
 
 ## Requirements:
