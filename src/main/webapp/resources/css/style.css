@@ -1,0 +1,84 @@
+
+:root {
+    --backgroundColour: #11151C;
+    --textColour: lightgrey;
+    --headerBackgroundColour: #333333;
+}
+
+body {
+    background-color: var(--backgroundColour);
+    color: var(--textColour);
+    align-items: center;
+    text-align: center;
+}
+
+.jumbotron {
+    background-color: var(--backgroundColour);
+    color: var(--textColour);
+}
+
+.header {
+    background-color: var(--headerBackgroundColour);
+    color: var(--textColour);
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 60px;
+}
+.navbar {
+    text-align: match-parent;
+    align-items: center;
+}
+.navbar-brand, .navbar-dark {
+    text-align: match-parent;
+    display: inline-block;
+    color: var(--textColour);
+}
+
+.navbar-dark .navbar-brand {
+    color: var(--textColour);
+}
+
+.navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
+    color: var(--backgroundColour);
+}
+
+.container {
+    max-height: 100%;
+    max-width: 100%;
+    align-items: center;
+}
+.content {
+    padding-top: 5%;
+    align-content: center;
+}
+form {
+    display: inline-block;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--headerBackgroundColour);
+    color: var(--textColour);
+}
+.btn-primary {
+    margin-top: 5%;
+    background-color: var(--headerBackgroundColour);
+    color: var(--textColour);
+    border-color: #3c3c3c;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited, .btn-primary:focus {
+    background-color: #444444;
+    color: var(--backgroundColour);
+    border: #3c3c3c;
+}
+
+.form-control, .form-control:focus {
+    background-color: var(--headerBackgroundColour);
+    color: var(--textColour);
+}
