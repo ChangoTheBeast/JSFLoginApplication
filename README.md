@@ -22,7 +22,7 @@ and Java EE.
  
 ## Login Screen
  
- ### Front End Components
+ ### Frontend Components <a name="login-frontend"></a>
  
   - Contains a form with two fields:
     - A username field
@@ -120,7 +120,7 @@ and Java EE.
           }
       ```
 ## Registration
- ### Front end Components
+ ### Frontend Components <a name="registration-frontend"></a>
  - Contains a form with the following fields:
     - Username
     - Password
@@ -145,7 +145,7 @@ and Java EE.
         <h:commandButton styleClass="btn btn-primary btn-lg" action="welcome?faces-redirect=true" value="Return"/>
 </h:form>
  ```
- ### Backend Components
+ ### Backend Components <a name="registration-backend"></a>
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE2MTM5OTg2XX0=
+eyJoaXN0b3J5IjpbNDMwNzc5NDQ1XX0=
 -->
