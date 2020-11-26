@@ -5,11 +5,13 @@ and Java EE.
 ## Table Of Contents:
 1. [Requirements](#requirements)
 2. [Login Screen](#login-screen)
-    1. [Front End Components](#front-end-components)
-    2. [Back End Components](#login-backend)
+    1. [Frontend Components](#login-frontend)
+    2. [Backend Components](#login-backend)
 3. [Authentication](#authentication)
 4. [Registration](#registration)
-    1. 
+    1. [Frontend Components](#registration-frontend)
+    2. [Backend Components](#registration-backend)
+5. [Demo](#demo)
 
 
 ## Requirements:
@@ -146,6 +148,42 @@ and Java EE.
 </h:form>
  ```
  ### Backend Components <a name="registration-backend"></a>
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNDMwNzc5NDQ1XX0=
--->
+ - Registration bean:
+    - Takes in the form information.
+    - Checks if user already exists.
+    - Persists user to the database.
+        - Generates a hashed password.
+ #### Registration code
+ ```java
+public void submit() {
+    List<UsersEntity> userList = usersDAO.getUserByName(user.getUsername());
+    if (userList.size() > 0) {
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User already exists in the database.", null));
+    } else {
+        try {
+            HashMap<UserSecurityEntity, byte[]> securityEntityHashMap = Hashing.setHash(user.getPassword());
+            String password = null;
+            for (byte[] hashedPassword : securityEntityHashMap.values()) {
+                password = Base64.getEncoder().encodeToString(hashedPassword);
+            }
+
+            UsersEntity userEntity = new UsersEntity();
+            userEntity.setUsername(user.getUsername());
+            userEntity.setPassword(password);
+            userEntity.setRole(this.role);
+            usersDAO.createUser(userEntity);
+            userEntity = usersDAO.getUserByName(user.getUsername()).get(0);
+            for (UserSecurityEntity entity : securityEntityHashMap.keySet()) {
+                entity.setUserId(userEntity.getUserId());
+                new UserSecurityDAO().createUserSecurity(entity);
+            }
+            facesContext.addMessage(null, new FacesMessage("User was successfully added.", null));
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User was unable to be added.", null));
+        }
+    }
+}
+ ```
+
+## Demo
+### Login
