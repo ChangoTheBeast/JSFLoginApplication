@@ -12,7 +12,11 @@ and Java EE.
     1. [Frontend Components](#registration-frontend)
     2. [Backend Components](#registration-backend)
 5. [Demo](#demo)
-
+    1. [Login Screen](#login-screen)
+    2. [Welcome Screen](#welcome-screen)
+    3. [Cake Screen](#cake-screen)
+    4. [Registration Screen](#registration-screen)
+    5. [Forbidden Screen](#forbidden-screen)
 
 ## Requirements:
  - Login screen that takes a username and password.
@@ -186,4 +190,18 @@ public void submit() {
  ```
 
 ## Demo
-### Login
+### Login Screen
+![LoginScreenImage](/images/LoginScreen.png)
+### Welcome Screen
+![WelcomeScreenImage](/images/WelcomeScreen.png)
+### Cake Screen
+![CakeScreenImage](/images/CakeScreen.png)
+### Registration Screen
+![RegistrationScreenImage](/images/RegistrationScreen.png)
+### Forbidden Screen
+![ForbiddenAccessScreenImage](/images/ForbiddenScreen.png)
+### Database
+#### Users Table
+![UsersTableImage](/images/UsersTable.png)
+#### User Security Table
+![UserSecurityTableImage](/images/UserSecurityTable.png)
