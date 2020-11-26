@@ -5,12 +5,18 @@ and Java EE.
 ## Table Of Contents:
 1. [Requirements](#requirements)
 2. [Login Screen](#login-screen)
-    1. [Front End Components](#front-end-components)
-    2. [Back End Components](#login-backend)
+    1. [Frontend Components](#login-frontend)
+    2. [Backend Components](#login-backend)
 3. [Authentication](#authentication)
 4. [Registration](#registration)
-    1. 
-
+    1. [Frontend Components](#registration-frontend)
+    2. [Backend Components](#registration-backend)
+5. [Demo](#demo)
+    1. [Login Screen](#login-screen)
+    2. [Welcome Screen](#welcome-screen)
+    3. [Cake Screen](#cake-screen)
+    4. [Registration Screen](#registration-screen)
+    5. [Forbidden Screen](#forbidden-screen)
 
 ## Requirements:
  - Login screen that takes a username and password.
@@ -22,7 +28,7 @@ and Java EE.
  
 ## Login Screen
  
- ### Front End Components
+ ### Frontend Components <a name="login-frontend"></a>
  
   - Contains a form with two fields:
     - A username field
@@ -120,7 +126,7 @@ and Java EE.
           }
       ```
 ## Registration
- ### Front end Components
+ ### Frontend Components <a name="registration-frontend"></a>
  - Contains a form with the following fields:
     - Username
     - Password
@@ -145,4 +151,57 @@ and Java EE.
         <h:commandButton styleClass="btn btn-primary btn-lg" action="welcome?faces-redirect=true" value="Return"/>
 </h:form>
  ```
- ### Backend Components
+ ### Backend Components <a name="registration-backend"></a>
+ - Registration bean:
+    - Takes in the form information.
+    - Checks if user already exists.
+    - Persists user to the database.
+        - Generates a hashed password.
+ #### Registration code
+ ```java
+public void submit() {
+    List<UsersEntity> userList = usersDAO.getUserByName(user.getUsername());
+    if (userList.size() > 0) {
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User already exists in the database.", null));
+    } else {
+        try {
+            HashMap<UserSecurityEntity, byte[]> securityEntityHashMap = Hashing.setHash(user.getPassword());
+            String password = null;
+            for (byte[] hashedPassword : securityEntityHashMap.values()) {
+                password = Base64.getEncoder().encodeToString(hashedPassword);
+            }
+
+            UsersEntity userEntity = new UsersEntity();
+            userEntity.setUsername(user.getUsername());
+            userEntity.setPassword(password);
+            userEntity.setRole(this.role);
+            usersDAO.createUser(userEntity);
+            userEntity = usersDAO.getUserByName(user.getUsername()).get(0);
+            for (UserSecurityEntity entity : securityEntityHashMap.keySet()) {
+                entity.setUserId(userEntity.getUserId());
+                new UserSecurityDAO().createUserSecurity(entity);
+            }
+            facesContext.addMessage(null, new FacesMessage("User was successfully added.", null));
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User was unable to be added.", null));
+        }
+    }
+}
+ ```
+
+## Demo
+### Login Screen
+![LoginScreenImage](/images/LoginScreen.png)
+### Welcome Screen
+![WelcomeScreenImage](/images/WelcomeScreen.png)
+### Cake Screen
+![CakeScreenImage](/images/CakeScreen.png)
+### Registration Screen
+![RegistrationScreenImage](/images/RegistrationScreen.png)
+### Forbidden Screen
+![ForbiddenAccessScreenImage](/images/ForbiddenScreen.png)
+### Database
+#### Users Table
+![UsersTableImage](/images/UsersTable.png)
+#### User Security Table
+![UserSecurityTableImage](/images/UserSecurityTable.png)
