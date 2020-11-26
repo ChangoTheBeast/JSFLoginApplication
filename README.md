@@ -1,6 +1,9 @@
 # JSF Login Application
 The goal of this project was to create a login application using JSF's
 and Java EE.
+<BR/>
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white)
 
 ## Table Of Contents:
 1. [Requirements](#requirements)
