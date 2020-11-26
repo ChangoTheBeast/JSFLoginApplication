@@ -6,16 +6,19 @@ and Java EE.
 1. [Requirements](#requirements)
 2. [Login Screen](#login-screen)
     1. [Front End Components](#front-end-components)
-    2. [Back End Components](#back-end-components)
+    2. [Back End Components](#login-backend)
 3. [Authentication](#authentication)
+4. [Registration](#registration)
+    1. 
 
 
 ## Requirements:
- - Login screen that takes a username and password
- - Authentication of the login
- - Both User and Admin roles
+ - Login screen that takes a username and password.
+ - Authentication of the login.
+ - Both User and Admin roles.
  - Content locked behind particular roles.
- - Good Styling
+ - Admins can register new users.
+ - Good Styling.
  
 ## Login Screen
  
@@ -39,7 +42,7 @@ and Java EE.
                     <h:commandButton styleClass="btn btn-primary btn-lg" action="#{loginBean.submit}" value="Submit"/>
                 </h:form>  
 ```
-### Back End Components
+### Backend Components <a name="login-backend"></a>
  - A bean to carry the information from the form to the authenticator
  - Redirect based on the authentication.
  - Logout method
@@ -116,4 +119,30 @@ and Java EE.
               return Base64.getEncoder().encodeToString(hashedPassword);
           }
       ```
-  
+## Registration
+ ### Front end Components
+ - Contains a form with the following fields:
+    - Username
+    - Password
+    - Role (selected via dropdown)
+ - Submit button that sends the information to the registration bean.
+ #### JSF Code
+ ```xhtml
+<h:form id = "registration">
+    <h:messages id="messages" globalOnly="true"/>
+    <h:panelGrid columns="2" cellspacing="5px" styleClass="login-form">
+        <h:outputLabel value="Username: "/>
+        <h:inputText id="username" value="#{userRegistrationBean.user.username}" styleClass="form-control"/>
+        <h:outputLabel value="Password: "/>
+        <h:inputSecret id="password" value="#{userRegistrationBean.user.password}" styleClass="form-control"/>
+        <h:outputLabel value="Role: "/>
+        <h:selectOneMenu value="#{userRegistrationBean.role}" styleClass="form-control">
+            <f:selectItem itemValue="admin" itemLabel="Admin" />
+            <f:selectItem itemValue="user" itemLabel="User" />
+        </h:selectOneMenu>
+    </h:panelGrid>
+        <h:commandButton styleClass="btn btn-primary btn-lg" action="#{userRegistrationBean.submit}" value="Submit"/>
+        <h:commandButton styleClass="btn btn-primary btn-lg" action="welcome?faces-redirect=true" value="Return"/>
+</h:form>
+ ```
+ ### Backend Components
